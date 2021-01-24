@@ -7,9 +7,6 @@ declare module 'styled-components' {
     colors: {
       backgroundSidebar: string;
       backgroundMain: string;
-
-      textSidebar: string;
-      textMain: string;
     };
   }
 }

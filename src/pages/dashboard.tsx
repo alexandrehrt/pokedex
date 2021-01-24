@@ -1,8 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import Switch from 'react-switch';
 import { ThemeContext } from 'styled-components';
+import { useQuery } from '@apollo/client';
 
-import { BiSun, BiMoon, BiSearch } from 'react-icons/bi';
+import { BiSun, BiMoon } from 'react-icons/bi';
+
+import { LOAD_POKEMONS } from '../GraphQL/Queries';
 
 import { Container, Sidebar, Main } from '../styles/pages/Dashboard';
 
@@ -11,9 +14,29 @@ interface Props {
 }
 
 const Dashboard: React.FC<Props> = ({ toggleTheme }) => {
+  const [pokemons, setPokemons] = useState([]);
+  const [pokeName, setPokeName] = useState('');
+  const [currentPoke, setCurrentPoke] = useState({});
+  const { data } = useQuery(LOAD_POKEMONS);
+
+  // Pokedex logo
   const logo = 'https://cdn.riderize.com/miscellaneous/logo-pokedex.png';
 
-  const { title } = useContext(ThemeContext);
+  const { title } = useContext(ThemeContext); // theme
+
+  // Fetch initial pokemon data
+  useEffect(() => {
+    if (data) {
+      setPokemons(data.pokemons.results);
+      setPokeName(data.pokemons.results[0].name);
+      setCurrentPoke(data.pokemons.results[0]);
+    }
+  }, [pokemons, data]);
+
+  const handleClick = useCallback(poke => {
+    setPokeName(poke.name);
+    setCurrentPoke(poke);
+  }, []);
 
   return (
     <Container>
@@ -28,54 +51,21 @@ const Dashboard: React.FC<Props> = ({ toggleTheme }) => {
         </div>
 
         <ul>
-          <li>
-            <p>001 Bulbasaur</p>
-          </li>
-          <li>
-            <p>001 Bulbasaur</p>
-          </li>
-          <li>
-            <p>001 Bulbasaur</p>
-          </li>
-          <li>
-            <p>001 Bulbasaur</p>
-          </li>
-          <li>
-            <p>001 Bulbasaur</p>
-          </li>
-          <li>
-            <p>001 Bulbasaur</p>
-          </li>
-          <li>
-            <p>001 Bulbasaur</p>
-          </li>
-          <li>
-            <p>001 Bulbasaur</p>
-          </li>
-          <li>
-            <p>001 Bulbasaur</p>
-          </li>
-          <li>
-            <p>001 Bulbasaur</p>
-          </li>
-          <li>
-            <p>001 Bulbasaur</p>
-          </li>
-          <li>
-            <p>001 Bulbasaur</p>
-          </li>
-          <li>
-            <p>001 Bulbasaur</p>
-          </li>
-          <li>
-            <p>001 Bulbasaur</p>
-          </li>
+          {pokemons.map(poke => {
+            return (
+              <li>
+                <button type="button" onClick={() => handleClick(poke)}>
+                  {poke.name}
+                </button>
+              </li>
+            );
+          })}
         </ul>
       </Sidebar>
 
       <Main>
         <header>
-          <h1>001 - Bulbasaur</h1>
+          <h1>{pokeName}</h1>
           <div id="switchbox">
             <BiSun color="#FFF" />
             <Switch
@@ -97,10 +87,10 @@ const Dashboard: React.FC<Props> = ({ toggleTheme }) => {
           <div id="poke-details">
             <div id="poke-picture">
               <img
-                src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fvignette3.wikia.nocookie.net%2Fpokemon-planet%2Fimages%2F5%2F5b%2FBulbasaur_by_elfaceitoso.png%2Frevision%2Flatest%3Fcb%3D20161115042430&f=1&nofb=1"
+                src={currentPoke.image}
                 alt="Pokemon"
-                height="300rem"
-                width="300rem"
+                height="300px"
+                width="300px"
               />
             </div>
 
@@ -145,18 +135,23 @@ const Dashboard: React.FC<Props> = ({ toggleTheme }) => {
 
             <div id="text">
               <p>
-                É um fato conhecido de todos que um leitor se distrairá com o
-                conteúdo de texto legível de uma página quando estiver
-                examinando sua diagramação. A vantagem de usar Lorem Ipsum é que
-                ele tem uma distribuição normal de letras, ao contrário de
-                "Conteúdo aqui, conteúdo aqui", fazendo com que ele tenha uma
-                aparência similar a de um texto legível. Muitos softwares de
-                publicação e editores de páginas na internet agora usam Lorem
-                Ipsum como texto-modelo padrão, e uma rápida busca por 'lorem
-                ipsum' mostra vários websites ainda em sua fase de construção.
-                Várias versões novas surgiram ao longo dos anos, eventualmente
-                por acidente, e às vezes de propósito (injetando humor, e coisas
-                do gênero).
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+                consequat mollis magna vel faucibus. Aliquam nisl metus, laoreet
+                vitae commodo et, consequat a neque. Fusce posuere arcu sit amet
+                ex finibus, et vestibulum ex ornare. Sed in ligula in nunc
+                suscipit tincidunt. Suspendisse tempus molestie venenatis.
+                Praesent sit amet purus vitae dolor faucibus pulvinar vitae
+                vestibulum metus. Aenean cursus lorem ac arcu pulvinar, et
+                rutrum tellus lacinia. Nulla facilisi. Donec ac elit elementum,
+                tempor lectus auctor, vehicula magna. Aliquam eget aliquam
+                libero, in ornare magna. Vivamus ex diam, accumsan in convallis
+                molestie, fermentum eu turpis. Suspendisse venenatis placerat
+                ligula at vestibulum. Nam nec consectetur lorem, eu facilisis
+                metus. Sed orci tortor, dictum ut nibh quis, bibendum
+                ullamcorper turpis. Nulla id nibh maximus, tincidunt turpis in,
+                venenatis neque. Pellentesque sit amet velit quis ipsum aliquam
+                interdum. Aliquam mauris orci, imperdiet vitae bibendum id,
+                semper vitae nulla.
               </p>
             </div>
           </div>

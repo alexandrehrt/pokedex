@@ -28,7 +28,7 @@ const Home: React.FC = () => {
       </Navbar>
 
       <Content>
-        <img src={pokeball} alt="Pokeball" />
+        <img src={pokeball} className="rotate-image" alt="Pokeball" />
         <form onSubmit={handleSubmit}>
           <input
             type="email"

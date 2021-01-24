@@ -19,6 +19,19 @@ export const Content = styled.div`
   align-items: center;
   height: 90%;
 
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+  }
+
+  img.rotate-image {
+    animation: rotation 3s ease-in-out infinite;
+  }
+
   form {
     display: flex;
     flex-direction: column;

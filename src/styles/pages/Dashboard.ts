@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  height: 100%;
   display: flex;
 `;
 
@@ -15,6 +14,7 @@ export const Sidebar = styled.div`
   flex-direction: column;
   align-items: center;
 
+  /* Logo - searchbox */
   div {
     max-width: 80%;
     border-bottom: 1px solid white;
@@ -34,8 +34,10 @@ export const Sidebar = styled.div`
     }
   }
 
+  /* List of pokemons */
   ul {
     margin-top: 30px;
+    height: 60vh;
     list-style: none;
     width: 80%;
     overflow-y: scroll;
@@ -44,14 +46,17 @@ export const Sidebar = styled.div`
       margin-top: 20px;
     }
 
-    p {
-      color: white;
+    button {
+      border: none;
+      font-size: 18px;
+      color: #fff;
+      background: transparent;
       transition: 0.2s;
-    }
 
-    p:hover {
-      font-size: 20px;
-      font-weight: 700;
+      &:hover {
+        font-size: 22px;
+        font-weight: 700;
+      }
     }
   }
 `;
@@ -59,15 +64,17 @@ export const Sidebar = styled.div`
 export const Main = styled.div`
   padding: 30px 80px;
   flex: 1;
+  height: 100%;
   background: ${props => props.theme.colors.backgroundMain};
 
   header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
 
   h1 {
-    font-size: 3rem;
+    font-size: 45px;
     color: white;
   }
 
@@ -79,7 +86,6 @@ export const Main = styled.div`
     align-items: flex-start;
   }
 
-  /* TESTEEEEEEEEE */
   div#poke-details {
     width: 50%;
     display: grid;
@@ -94,7 +100,7 @@ export const Main = styled.div`
 
   div#poke-picture {
     grid-area: picture;
-    background: white;
+    background: #fff;
     border-radius: 12px;
     display: flex;
     justify-content: center;
@@ -102,30 +108,37 @@ export const Main = styled.div`
 
   div#poke-type {
     grid-area: type;
-    background: white;
+    background: #fff;
     padding: 8px;
     border-radius: 12px;
-    display: flex;
-    justify-content: space-around;
+
+    span ~ span {
+      color: #fff;
+      margin-left: 20px;
+      padding: 5px 12px;
+      border-radius: 12px;
+
+      background: lightgreen;
+    }
   }
 
   span#heigth {
     grid-area: heigth;
-    background: white;
+    background: #fff;
     padding: 8px;
     border-radius: 12px;
   }
 
   span#weigth {
     grid-area: weigth;
-    background: white;
+    background: #fff;
     padding: 8px;
     border-radius: 12px;
   }
 
   div#attributes {
     grid-area: attributes;
-    background: white;
+    background: #fff;
     padding: 8px;
     border-radius: 12px;
 
@@ -140,94 +153,20 @@ export const Main = styled.div`
       span {
         text-align: center;
         background: lightgreen;
-        color: white;
+        color: #fff;
         border-radius: 12px;
         padding: 4px;
       }
     }
   }
 
-  /* AQUI COMEÇA O ORIGINAL - NÃO MEXER */
-  /* div#poke-details {
-    width: 50%;
-    height: 100%;
-
-    div#poke-picture {
-      background: white;
-      border-radius: 12px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    div#poke-type {
-      background: white;
-      margin-top: 20px;
-      padding: 0.5rem;
-      border-radius: 12px;
-
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-
-      span ~ span {
-        background: green;
-        padding: 4px 8px;
-        color: white;
-        text-transform: uppercase;
-        border-radius: 8px;
-      }
-    }
-
-    div#heigth-weigth {
-      margin-top: 20px;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    div#heigth-weigth span {
-      width: 49%;
-      font-size: 15px;
-      background: white;
-      text-align: center;
-      padding: 10px;
-      border-radius: 12px;
-    }
-
-    div#attributes {
-      text-align: center;
-      background: white;
-      margin-top: 20px;
-      padding: 10px;
-      border-radius: 12px;
-
-      div {
-        margin-top: 10px;
-
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-row-gap: 10px;
-        grid-column-gap: 10px;
-
-        span {
-          background: lightgreen;
-          color: white;
-          border-radius: 12px;
-          padding: 4px;
-        }
-      }
-    }
-  } */
-
-  /* AQUI TERMINA O ORIGINAL - NÃO MEXER */
-
   div#poke-description {
     width: 50%;
-    height: 100%;
+    height: 100vh;
     margin-left: 50px;
 
     div#evolution {
-      background: white;
+      background: #fff;
       margin-bottom: 20px;
       border-radius: 12px;
       padding: 20px;
@@ -239,7 +178,7 @@ export const Main = styled.div`
     }
 
     div#text {
-      background: white;
+      background: #fff;
       border-radius: 12px;
       padding: 20px;
       line-height: 30px;

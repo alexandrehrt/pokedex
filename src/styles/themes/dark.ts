@@ -2,10 +2,7 @@ export default {
   title: 'dark',
 
   colors: {
-    backgroundSidebar: '#000',
-    backgroundMain: '#000',
-
-    textSidebar: '#FFF',
-    textMain: '#000',
+    backgroundSidebar: '#0D1117',
+    backgroundMain: '#0D1117',
   },
 };
