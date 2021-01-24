@@ -13,10 +13,17 @@ interface Props {
   toggleTheme(): void;
 }
 
+interface Pokemon {
+  name: string;
+  id: string;
+  image: string;
+}
+
 const Dashboard: React.FC<Props> = ({ toggleTheme }) => {
-  const [pokemons, setPokemons] = useState([]);
+  const [pokemons, setPokemons] = useState<Pokemon[]>([]);
   const [pokeName, setPokeName] = useState('');
-  const [currentPoke, setCurrentPoke] = useState({});
+  const [currentPoke, setCurrentPoke] = useState<Pokemon>({} as Pokemon);
+
   const { data } = useQuery(LOAD_POKEMONS);
 
   // Pokedex logo
